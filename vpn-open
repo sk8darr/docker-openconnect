@@ -14,11 +14,13 @@ Usage: vpn-open [options...] <url>
     -s  The server hostname or IP to open a proxy tunnel to
     -P  The server port to connect & create a proxy tunnel to
     -L  The local proxy port (default: 61000)
+    -e  Extra params required
     -5  Use a SOCKS5 proxy instead of a proxy port tunnel"
     exit 0;
 }
 
-while getopts ":u:p:s:P:L:5h" arg; do
+while getopts ":u:p:s:P:L:e:5h" arg; do
+echo $arg
     case $arg in
         u)
           USERNAME=${OPTARG}
@@ -35,6 +37,9 @@ while getopts ":u:p:s:P:L:5h" arg; do
         L)
           LOCAL_PROXY_PORT=${OPTARG}
           ;;
+	e)
+	  EXTRA_ARGS=${OPTARG}
+	  ;;
         5)
           SOCKS5=true
           ;;
@@ -74,10 +79,10 @@ fi
 
 if [[ ${SOCKS5} = true ]]; then
     echo "Creating SOCKS5 proxy"
-    bash -c "echo -n ${PASSWORD} | openconnect -u${USERNAME} --passwd-on-stdin --script-tun --script 'ocproxy -k 2 -D${LOCAL_PROXY_PORT}' ${HOST}" &
+    bash -c "echo -n ${PASSWORD} | openconnect -u${USERNAME} --passwd-on-stdin --script-tun --script 'ocproxy -k 2 -D${LOCAL_PROXY_PORT}' ${EXTRA_ARGS} ${HOST}" &
 else
     echo "Creating proxy port tunnel"
-    bash -c "echo -n ${PASSWORD} | openconnect -u${USERNAME} --passwd-on-stdin --script-tun --script 'ocproxy -k 2 -L${LOCAL_PROXY_PORT}:${SERVER}:${SERVER_PORT}' ${HOST}" &
+    bash -c "echo -n ${PASSWORD} | openconnect -u${USERNAME} --passwd-on-stdin --script-tun --script 'ocproxy -k 2 -L${LOCAL_PROXY_PORT}:${SERVER}:${SERVER_PORT}' ${EXTRA_ARGS} ${HOST}" &
 fi
 
 sleep 5

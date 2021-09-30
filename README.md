@@ -54,6 +54,7 @@ The example below show you on how to user this image to connect to a VPN and set
         -s  The server hostname or IP to open a proxy tunnel to
         -P  The server port to connect & create a proxy tunnel to
         -L  The local proxy port (default: 61000)
+	-e  Extra params required
         -5  Use a SOCKS5 proxy instead of a proxy port tunnel
         
 ### Manual of `vpn-close`
