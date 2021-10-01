@@ -16,7 +16,7 @@ The example below shows you on how to use this image to connect to a VPN and set
         master:
           - step:
              name: deploy
-             image: yoep/openconnect
+             image: sk8darr/openconnect
              script:
                # connect to vpn
                - vpn-open -u ${VPN_USER} -p ${VPN_PASSWORD} -s ${SERVER} -P ${SERVER_PORT} ${VPN_HOST}
@@ -33,7 +33,7 @@ The example below show you on how to user this image to connect to a VPN and set
         master:
           - step:
              name: deploy
-             image: yoep/openconnect
+             image: sk8darr/openconnect
              script:
                # connect to vpn
                - vpn-open -u ${VPN_USER} -p ${VPN_PASSWORD} -5 ${VPN_HOST}
