@@ -20,7 +20,6 @@ Usage: vpn-open [options...] <url>
 }
 
 while getopts ":u:p:s:P:L:e:5h" arg; do
-echo $arg
     case $arg in
         u)
           USERNAME=${OPTARG}
